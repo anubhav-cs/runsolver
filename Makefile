@@ -25,7 +25,12 @@ OBJ=$(SRC:.cc=.o)
 all:runsolver
 
 install: runsolver
-	cp runsolver $(INSTROOT)/usr/bin
+	@if [ $(INSTROOT) ];\
+	then\
+		cp runsolver $(INSTROOT);\
+	else\
+		cp runsolver /usr/bin;\
+	fi
 
 include $(SRC:.cc=.d)
 
