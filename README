@@ -1,3 +1,59 @@
+# runsolver
+
+Check branch history to view changes over original source code v3.4.1 http://www.cril.univ-artois.fr/~roussel/runsolver/.
+
+## Build
+
+> [!Note]
+>  Build instructions tested on `make 4.3`, `g++ 13.3.0`, and `Ubuntu 24.04.2 LTS`. The code is Linux specific.
+
+
+```build
+make
+```
+
+## Install
+
+Copy the binary into a local applications directory which is on PATH (run `echo $PATH` to check):
+
+```install-local
+make install INSTROOT=<installation-dir>
+```
+
+For system-wide installation (requires sudoers priviledge):
+```install
+sudo make install
+```
+
+## Cleanup Build files
+
+```
+make clean
+```
+
+## Usage
+
+```
+runsolver --timestamp -C <cpu-limit-seconds> -W <wall-clock-limit-seconds>\
+-R <RSS+SWAP-limit> -V <VM-limit> -w watch.log -v values.log -o tool_output.log\
+ ./<path-to-solver-runnable> <tool-args>
+```
+
+> [!Important]
+> The type of memory limit is important as some programs may request a lot of virtual memory (VM) but only use a fraction of it. So, <VM-limit> should be much greater than <RSS+SWAP-limit>. If in doubt, omit `-V <VM-limit>` altogether.
+
+- `-R` <RSS+SWAP-limit> Limits RSS (Resident Set Size, or in other words, amount of RAM used) and swap
+- `-V` <VM-limit> limits virtual memory (VM) usage
+
+### Example
+
+```
+runsolver -C 1800 -R 8192 -w watch.log -v values.log -o tool_output.log ./<path-to-solver-runnable> <args>
+```
+limits the cpu time consumed to $1800$ seconds and RSS to $8192$ mega bytes.
+
+---
+
 runsolver Copyright (C) 2010 Olivier ROUSSEL (roussel@cril.univ-artois.fr)
 
 runsolver is a program meant to control the ressources used by a
