@@ -1003,7 +1003,7 @@ void numaInfo()
     return;
   
   int nbNodes=numa_num_configured_nodes();
-  long long mem,memFree;
+  long mem,memFree;
   
   cout << "NUMA information:\n";
   cout << "  number of nodes: " << nbNodes << endl;
