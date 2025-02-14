@@ -35,20 +35,20 @@ make clean
 
 ```
 runsolver --timestamp -C <cpu-limit-seconds> -W <wall-clock-limit-seconds>\
--R <RSS+SWAP-limit> -V <VM-limit> -w watch.log -v values.log -o tool_output.log\
+--rss-swap-limit <RSS+SWAP-limit> --vsize-limit <VM-limit> -w watch.log -v values.log -o tool_output.log\
  ./<path-to-solver-runnable> <tool-args>
 ```
 
 > [!Important]
-> The type of memory limit is important as some programs may request a lot of virtual memory (VM) but only use a fraction of it. So, <VM-limit> should be much greater than <RSS+SWAP-limit>. If in doubt, omit `-V <VM-limit>` altogether.
+> The type of memory limit is important as some programs may request a lot of virtual memory (VM) but only use a fraction of it. So, <VM-limit> should be much greater than <RSS+SWAP-limit>. If in doubt, omit `--vsize-limit <VM-limit>` altogether.
 
-- `-R` <RSS+SWAP-limit> Limits RSS (Resident Set Size, or in other words, amount of RAM used) and swap
-- `-V` <VM-limit> limits virtual memory (VM) usage
+- `--rss-swap-limit` <RSS+SWAP-limit> Limits RSS (Resident Set Size, or in other words, amount of RAM used) and swap
+- `--vsize-limit` <VM-limit> limits virtual memory (VM) usage
 
 ### Example
 
 ```
-runsolver -C 1800 -R 8192 -w watch.log -v values.log -o tool_output.log ./<path-to-solver-runnable> <args>
+runsolver -C 1800 --rss-swap-limit 8192 -w watch.log -v values.log -o tool_output.log ./<path-to-solver-runnable> <args>
 ```
 limits the cpu time consumed to $1800$ seconds and RSS to $8192$ mega bytes.
 
