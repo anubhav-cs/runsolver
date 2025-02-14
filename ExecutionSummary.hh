@@ -35,7 +35,8 @@ struct ExecutionSummary
   long maxVM; // maximum virtual memory used in KiB
   long maxMem; // maximum memory used in KiB
   bool timeOut; // did the solver exceed the time limit?
-  bool memOut; // did the solver exceed the memory limit?
+  bool vmmemOut; // did the solver exceed the VM limit?
+  bool rssswapmemOut; // did the solver exceed the RSS+SWAP limit?
 
   
   ExecutionSummary()

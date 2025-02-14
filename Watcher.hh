@@ -437,7 +437,8 @@ public:
     execSummary.maxVM=maxVSize;
     execSummary.timeOut=(limitCPUTime && solverCPUTime>limitCPUTime) ||
       (limitWallClockTime && (wcTime>limitWallClockTime));
-    execSummary.memOut=limitVSize && maxVSize>limitVSize;
+    execSummary.vmmemOut=limitVSize && maxVSize>limitVSize;
+    execSummary.rssswapmemOut=limitMemory && maxMemory>limitMemory;
     execSummary.maxMem=maxMemory;
  
     if(varOutputFilename)
@@ -467,12 +468,18 @@ public:
  
         var << "# MAXVM: maximum virtual memory used in KiB\n" 
             << "MAXVM=" << execSummary.maxVM << endl;
+
+        var << "# MAXRSS+SWAP: maximum RSS+SWAP used in KiB\n" 
+            << "MAXRSS+SWAP=" << execSummary.maxMem << endl;
  
         var << "# TIMEOUT: did the solver exceed the time limit?\n"
             << "TIMEOUT=" << boolalpha << execSummary.timeOut << endl;
       
-        var << "# MEMOUT: did the solver exceed the memory limit?\n"
-            << "MEMOUT=" << boolalpha << execSummary.memOut << endl;
+        var << "# VM MEMOUT: did the solver exceed the memory limit?\n"
+            << "V-MEMOUT=" << boolalpha << execSummary.vmmemOut << endl;
+
+        var << "# RSS+SWAP MEMOUT: did the solver exceed the memory limit?\n"
+            << "R-MEMOUT=" << boolalpha << execSummary.rssswapmemOut << endl;
       
         if(!var.good())
           cout << "failed to save the main statistics in text format\n";
